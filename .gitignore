@@ -1,0 +1,7 @@
+*.log
+.DS_Store
+node_modules
+.parcel-cache
+dist
+coverage
+archive
