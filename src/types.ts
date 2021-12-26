@@ -17,13 +17,17 @@ export type EncodedKey = number
 export type EncodedSequence = number
 
 export type Callback = () => any
+export type KeyboardEventListener = (event: KeyboardEvent) => any
+
 export type HandlerState<KA extends KeyAliases = {}> = {
   codes: Record<string, EncodedKey>
   aliases: KA
   history: EncodedKey[]
   historySize: number
   bindings: Map<EncodedSequence, Set<Callback>>
+  targets: Set<EventTarget>
 }
+
 export interface HandlerInterface<KA extends KeyAliases = {}> {
   add(key: StringKey<KA>, fn: Callback): this
   add(keys: Array<StringKey<KA>>, fn: Callback): this

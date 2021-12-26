@@ -1,6 +1,7 @@
 import {normalizeSequence} from '../normalize'
-import {Callback, EncodedKey, HandlerState, KeyAliases, StringKey} from '../types'
-import {encodeEvent, encodeSequence, getCharacterCode, getModifiersCode, getSequencesCodes, getSequenceSize} from '../encode'
+import {Callback, HandlerState, KeyAliases, StringKey} from '../types'
+import {encodeEvent, encodeSequence, getSequencesCodes, getSequenceSize} from '../encode'
+import {KeyboardEventListener} from '..'
 
 export function addBinding<Aliases extends KeyAliases>(state: HandlerState<Aliases>, sequence: Array<StringKey<Aliases>>, fn: Callback) {
   const sequenceCode = encodeSequence(state.codes, normalizeSequence(state.aliases, sequence))
@@ -25,10 +26,6 @@ export function removeBinding<Aliases extends KeyAliases>(state: HandlerState<Al
 
 export function handleEvent<Aliases extends KeyAliases>(state: HandlerState<Aliases>, event: KeyboardEvent) {
   const key = encodeEvent(state.codes, event)
-  const lastKey = state.history.pop()
-  if (lastKey !== undefined && !shouldReplaceKey(lastKey, key)) {
-    state.history.push(lastKey)
-  }
   state.history.push(key)
   if (state.history.length > state.historySize) {
     state.history.shift()
@@ -47,8 +44,14 @@ export function updateHistorySize<Aliases extends KeyAliases>(state: HandlerStat
   return state
 }
 
-export function shouldReplaceKey(oldKey: EncodedKey, newKey: EncodedKey) {
-  if (getCharacterCode(oldKey) > 0) return false
-  const oldModifiers = getModifiersCode(oldKey)
-  return (oldModifiers & getModifiersCode(newKey)) == oldModifiers
+export function addTarget<Aliases extends KeyAliases>(state: HandlerState<Aliases>, target: EventTarget, handle: KeyboardEventListener) {
+  target.addEventListener('keyup', handle as EventListener)
+  state.targets.add(target)
+  return state
+}
+
+export function removeTarget<Aliases extends KeyAliases>(state: HandlerState<Aliases>, target: EventTarget, handle: KeyboardEventListener) {
+  target.removeEventListener('keyup', handle as EventListener)
+  state.targets.delete(target)
+  return state
 }

@@ -1,6 +1,6 @@
-import {bind, bindings, event, fnMocks, keyCode, seqCode, state} from '../test-utils'
+import {bind, bindings, event, fnMocks, seqCode, state} from '../test-utils'
 import {StringKey} from '../types'
-import {addBinding, handleEvent, removeBinding, shouldReplaceKey, updateHistorySize} from './methods'
+import {addBinding, handleEvent, removeBinding, updateHistorySize} from './methods'
 
 describe('addBinding', () => {
   it(`adds a binding to a new key`, () => {
@@ -136,28 +136,5 @@ describe('updateHistorySize', () => {
     const before = state({historySize: 1, bindings: theBindings})
     const after = state({historySize: 3, bindings: theBindings})
     expect(updateHistorySize(before)).toEqual(after)
-  })
-})
-
-describe('shouldReplaceKey', () => {
-  it(`returns false if the old key has a character`, () => {
-    expect(shouldReplaceKey(keyCode('a'), keyCode('alt+a'))).toBe(false)
-    expect(shouldReplaceKey(keyCode('a'), keyCode('alt+b'))).toBe(false)
-    expect(shouldReplaceKey(keyCode('a'), keyCode('ctrl'))).toBe(false)
-    expect(shouldReplaceKey(keyCode('alt+a'), keyCode('alt+a'))).toBe(false)
-    expect(shouldReplaceKey(keyCode('ctrl+a'), keyCode('alt+a'))).toBe(false)
-    expect(shouldReplaceKey(keyCode('ctrl+a'), keyCode('a'))).toBe(false)
-  })
-  it(`returns true if all modifiers on the old key are present in the new key`, () => {
-    expect(shouldReplaceKey(keyCode('ctrl'), keyCode('ctrl+a'))).toBe(true)
-    expect(shouldReplaceKey(keyCode('ctrl'), keyCode('ctrl+alt+a'))).toBe(true)
-    expect(shouldReplaceKey(keyCode('alt'), keyCode('ctrl+alt'))).toBe(true)
-    expect(shouldReplaceKey(keyCode('ctrl+shift'), keyCode('ctrl+alt+shift+a'))).toBe(true)
-  })
-  it(`returns false if some modifier on the old key is not present in the new key`, () => {
-    expect(shouldReplaceKey(keyCode('alt'), keyCode('ctrl+a'))).toBe(false)
-    expect(shouldReplaceKey(keyCode('alt'), keyCode('ctrl+shift'))).toBe(false)
-    expect(shouldReplaceKey(keyCode('ctrl+shift'), keyCode('alt+shift+a'))).toBe(false)
-    expect(shouldReplaceKey(keyCode('ctrl+alt'), keyCode('ctrl+shift+a'))).toBe(false)
   })
 })

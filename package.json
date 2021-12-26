@@ -1,9 +1,9 @@
 {
   "name": "ctrl-keys",
   "author": "Amine Ben hammou",
-  "description": "A library to handle keybindings.",
+  "description": "A Typescript library to handle keybindings efficiently.",
   "license": "MIT",
-  "version": "1.0.1-alpha",
+  "version": "1.0.2-alpha",
   "source": "src/index.ts",
   "main": "dist/index.js",
   "module": "dist/module.js",
@@ -22,6 +22,8 @@
   "devDependencies": {
     "@parcel/packager-ts": "^2.0.1",
     "@parcel/transformer-typescript-types": "^2.0.1",
+    "@testing-library/dom": "^8.11.1",
+    "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.0.2",
     "jest": "^27.3.1",
     "just-types": "^1.1.0",

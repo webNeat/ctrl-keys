@@ -1,2 +1,2 @@
 export * from './types'
-export {handler} from './handler'
+export {createHandler} from './handler'

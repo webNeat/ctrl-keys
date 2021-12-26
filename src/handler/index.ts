@@ -1,15 +1,16 @@
 import {codes, aliases} from '../constants'
 import {Handler} from './Handler'
-import {HandlerState, KeyAliases} from '../types'
+import {KeyAliases} from '../types'
 
-const defaultState: HandlerState = {
-  codes,
-  aliases,
-  history: [],
-  historySize: 0,
-  bindings: new Map(),
-}
+type DefaultAliases = typeof aliases
 
-export function handler<Aliases extends KeyAliases>(state: Partial<HandlerState<Aliases>> = {}) {
-  return new Handler<Aliases>({...defaultState, ...state} as HandlerState<Aliases>)
+export function createHandler<Aliases extends KeyAliases = DefaultAliases>(customAliases?: Aliases) {
+  return new Handler<Aliases>({
+    codes,
+    aliases: (customAliases || aliases) as Aliases,
+    history: [],
+    historySize: 0,
+    bindings: new Map(),
+    targets: new Set(),
+  })
 }

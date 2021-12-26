@@ -26,18 +26,19 @@ export function state(value: Partial<HandlerState> = {}): HandlerState {
     history: [],
     historySize: 0,
     bindings: new Map(),
+    targets: new Set(),
     ...value,
   }
 }
 
 export function event(...keys: Array<Modifiers[keyof Modifiers] | Character | SpecialKey>): KeyboardEvent {
-  return {
+  return new KeyboardEvent('keydown', {
     ctrlKey: keys.includes('ctrl'),
     altKey: keys.includes('alt'),
     metaKey: keys.includes('meta'),
     shiftKey: keys.includes('shift'),
     key: keys[keys.length - 1] as string,
-  } as any
+  })
 }
 
 export function fnMocks<Name extends string>(...names: Name[]) {

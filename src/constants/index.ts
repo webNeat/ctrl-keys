@@ -1,4 +1,3 @@
-import {KeyAliases} from '../types'
 import {characters} from './characters'
 import {specialKeys} from './specialKeys'
 
@@ -6,7 +5,7 @@ export {characters, specialKeys}
 
 export const modifiers = ['ctrl', 'alt', 'meta', 'shift'] as const
 
-export const aliases: KeyAliases = {
+export const aliases = {
   space: ' ',
   plus: '+',
   up: 'arrowup',
@@ -14,7 +13,7 @@ export const aliases: KeyAliases = {
   left: 'arrowleft',
   right: 'arrowright',
   esc: 'escape',
-}
+} as const
 
 export const codes: Record<string, number> = {}
 let i = 1

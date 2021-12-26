@@ -1,6 +1,6 @@
 # ctrl-keys
 
-A library to handle keybindings.
+A Typescript library to handle keybindings efficiently.
 
 [![Bundle size](https://img.shields.io/bundlephobia/minzip/ctrl-keys?style=flat-square)](https://bundlephobia.com/result?p=ctrl-keys)
 [![Tests Status](https://img.shields.io/github/workflow/status/webneat/ctrl-keys/Tests?style=flat-square)](https://github.com/webneat/ctrl-keys/actions?query=workflow:"Tests")
@@ -9,3 +9,4 @@ A library to handle keybindings.
 [![Rank](https://img.shields.io/librariesio/sourcerank/npm/ctrl-keys?style=flat-square)](https://libraries.io/npm/ctrl-keys)
 [![Version](https://img.shields.io/npm/v/ctrl-keys?style=flat-square)](https://www.npmjs.com/package/ctrl-keys)
 [![MIT](https://img.shields.io/npm/l/ctrl-keys?style=flat-square)](LICENSE)
+
