@@ -3,7 +3,7 @@
   "author": "Amine Ben hammou",
   "description": "A library to handle keybindings.",
   "license": "MIT",
-  "version": "1.0.0-alpha",
+  "version": "1.0.1-alpha",
   "source": "src/index.ts",
   "main": "dist/index.js",
   "module": "dist/module.js",
