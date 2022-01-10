@@ -1,7 +1,6 @@
 import {normalizeSequence} from '../normalize'
 import {Callback, HandlerState, KeyAliases, StringKey} from '../types'
 import {encodeEvent, encodeSequence, getSequencesCodes, getSequenceSize} from '../encode'
-import {KeyboardEventListener} from '..'
 
 export function addBinding<Aliases extends KeyAliases>(state: HandlerState<Aliases>, sequence: Array<StringKey<Aliases>>, fn: Callback) {
   const sequenceCode = encodeSequence(state.codes, normalizeSequence(state.aliases, sequence))
@@ -30,10 +29,14 @@ export function handleEvent<Aliases extends KeyAliases>(state: HandlerState<Alia
   if (state.history.length > state.historySize) {
     state.history.shift()
   }
+  let foundMatchingSequence = false
   for (const sequenceCode of getSequencesCodes(state.history)) {
-    for (const fn of state.bindings.get(sequenceCode) || []) fn()
+    for (const fn of state.bindings.get(sequenceCode) || []) {
+      foundMatchingSequence = true
+      fn(event)
+    }
   }
-  return state
+  return [state, foundMatchingSequence] as const
 }
 
 export function updateHistorySize<Aliases extends KeyAliases>(state: HandlerState<Aliases>) {
@@ -41,17 +44,5 @@ export function updateHistorySize<Aliases extends KeyAliases>(state: HandlerStat
   for (const code of state.bindings.keys()) {
     state.historySize = Math.max(state.historySize, getSequenceSize(code))
   }
-  return state
-}
-
-export function addTarget<Aliases extends KeyAliases>(state: HandlerState<Aliases>, target: EventTarget, handle: KeyboardEventListener) {
-  target.addEventListener('keyup', handle as EventListener)
-  state.targets.add(target)
-  return state
-}
-
-export function removeTarget<Aliases extends KeyAliases>(state: HandlerState<Aliases>, target: EventTarget, handle: KeyboardEventListener) {
-  target.removeEventListener('keyup', handle as EventListener)
-  state.targets.delete(target)
   return state
 }

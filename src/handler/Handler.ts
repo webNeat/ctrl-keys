@@ -1,12 +1,10 @@
 import {Callback, HandlerInterface, HandlerState, KeyAliases, StringKey} from '../types'
-import {addBinding, addTarget, handleEvent, removeBinding, removeTarget} from './methods'
+import {addBinding, handleEvent, removeBinding} from './methods'
 
 export class Handler<Aliases extends KeyAliases> implements HandlerInterface<Aliases> {
   constructor(protected state: HandlerState<Aliases>) {
     this.add = this.add.bind(this)
     this.remove = this.remove.bind(this)
-    this.addListener = this.addListener.bind(this)
-    this.removeListener = this.removeListener.bind(this)
     this.handle = this.handle.bind(this)
   }
 
@@ -26,18 +24,9 @@ export class Handler<Aliases extends KeyAliases> implements HandlerInterface<Ali
     return this
   }
 
-  addListener(target: EventTarget) {
-    this.state = addTarget(this.state, target, this.handle)
-    return this
-  }
-
-  removeListener(target: EventTarget) {
-    this.state = removeTarget(this.state, target, this.handle)
-    return this
-  }
-
   handle(event: KeyboardEvent) {
-    this.state = handleEvent(this.state, event)
-    return this
+    const [state, foundMatchingSequence] = handleEvent(this.state, event)
+    this.state = state
+    return foundMatchingSequence
   }
 }

@@ -16,7 +16,7 @@ export type StringKey<KA extends KeyAliases = {}> = Join<ArrayKey<KeyValue | key
 export type EncodedKey = number
 export type EncodedSequence = number
 
-export type Callback = () => any
+export type Callback = (event?: KeyboardEvent) => any
 export type KeyboardEventListener = (event: KeyboardEvent) => any
 
 export type HandlerState<KA extends KeyAliases = {}> = {
@@ -33,5 +33,5 @@ export interface HandlerInterface<KA extends KeyAliases = {}> {
   add(keys: Array<StringKey<KA>>, fn: Callback): this
   remove(key: StringKey<KA>, fn: Callback): this
   remove(keys: Array<StringKey<KA>>, fn: Callback): this
-  handle(event: KeyboardEvent): this
+  handle(event: KeyboardEvent): boolean
 }
