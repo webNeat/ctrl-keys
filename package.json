@@ -3,7 +3,7 @@
   "author": "Amine Ben hammou",
   "description": "A Typescript library to handle keybindings efficiently.",
   "license": "MIT",
-  "version": "1.0.3-alpha",
+  "version": "1.0.4-alpha",
   "source": "src/index.ts",
   "main": "dist/index.js",
   "module": "dist/module.js",
