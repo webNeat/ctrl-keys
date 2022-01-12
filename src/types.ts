@@ -24,8 +24,8 @@ export type HandlerState<KA extends KeyAliases = {}> = {
   aliases: KA
   history: EncodedKey[]
   historySize: number
+  disabledSequenceCodes: Set<number>
   bindings: Map<EncodedSequence, Set<Callback>>
-  targets: Set<EventTarget>
 }
 
 export interface HandlerInterface<KA extends KeyAliases = {}> {
@@ -33,5 +33,9 @@ export interface HandlerInterface<KA extends KeyAliases = {}> {
   add(keys: Array<StringKey<KA>>, fn: Callback): this
   remove(key: StringKey<KA>, fn: Callback): this
   remove(keys: Array<StringKey<KA>>, fn: Callback): this
+  enable(key: StringKey<KA>): this
+  enable(keys: Array<StringKey<KA>>): this
+  disable(key: StringKey<KA>): this
+  disable(keys: Array<StringKey<KA>>): this
   handle(event: KeyboardEvent): boolean
 }

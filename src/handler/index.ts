@@ -11,6 +11,6 @@ export function createHandler<Aliases extends KeyAliases = DefaultAliases>(custo
     history: [],
     historySize: 0,
     bindings: new Map(),
-    targets: new Set(),
+    disabledSequenceCodes: new Set(),
   })
 }

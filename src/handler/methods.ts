@@ -23,6 +23,18 @@ export function removeBinding<Aliases extends KeyAliases>(state: HandlerState<Al
   return updateHistorySize(state)
 }
 
+export function enableSequence<Aliases extends KeyAliases>(state: HandlerState<Aliases>, sequence: Array<StringKey<Aliases>>) {
+  const sequenceCode = encodeSequence(state.codes, normalizeSequence(state.aliases, sequence))
+  state.disabledSequenceCodes.delete(sequenceCode)
+  return state
+}
+
+export function disableSequence<Aliases extends KeyAliases>(state: HandlerState<Aliases>, sequence: Array<StringKey<Aliases>>) {
+  const sequenceCode = encodeSequence(state.codes, normalizeSequence(state.aliases, sequence))
+  state.disabledSequenceCodes.add(sequenceCode)
+  return state
+}
+
 export function handleEvent<Aliases extends KeyAliases>(state: HandlerState<Aliases>, event: KeyboardEvent) {
   const key = encodeEvent(state.codes, event)
   state.history.push(key)
@@ -31,6 +43,9 @@ export function handleEvent<Aliases extends KeyAliases>(state: HandlerState<Alia
   }
   let foundMatchingSequence = false
   for (const sequenceCode of getSequencesCodes(state.history)) {
+    if (state.disabledSequenceCodes.has(sequenceCode)) {
+      continue
+    }
     for (const fn of state.bindings.get(sequenceCode) || []) {
       foundMatchingSequence = true
       fn(event)

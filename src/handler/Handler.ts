@@ -1,5 +1,5 @@
 import {Callback, HandlerInterface, HandlerState, KeyAliases, StringKey} from '../types'
-import {addBinding, handleEvent, removeBinding} from './methods'
+import {addBinding, disableSequence, enableSequence, handleEvent, removeBinding} from './methods'
 
 export class Handler<Aliases extends KeyAliases> implements HandlerInterface<Aliases> {
   constructor(protected state: HandlerState<Aliases>) {
@@ -21,6 +21,22 @@ export class Handler<Aliases extends KeyAliases> implements HandlerInterface<Ali
       keys = [keys]
     }
     this.state = removeBinding(this.state, keys, fn)
+    return this
+  }
+
+  enable(keys: StringKey<Aliases> | Array<StringKey<Aliases>>): this {
+    if (typeof keys === 'string') {
+      keys = [keys]
+    }
+    this.state = enableSequence(this.state, keys)
+    return this
+  }
+
+  disable(keys: StringKey<Aliases> | Array<StringKey<Aliases>>): this {
+    if (typeof keys === 'string') {
+      keys = [keys]
+    }
+    this.state = disableSequence(this.state, keys)
     return this
   }
 

@@ -7,7 +7,7 @@ test('basic usage', () => {
   const decrement = () => (counter -= 1)
   const reset = () => (counter = 0)
   const handler = createHandler().add('ctrl+up', increment).add('ctrl+down', decrement).add('esc', reset)
-  handler.addListener(window)
+  window.addEventListener('keydown', handler.handle)
 
   userEvent.keyboard('{Control>}{ArrowUp}{/Control}')
   expect(counter).toBe(1)
@@ -21,18 +21,26 @@ test('basic usage', () => {
   userEvent.keyboard('{ArrowUp}')
   expect(counter).toBe(2)
 
-  handler.remove('ctrl+up', increment)
+  handler.disable('ctrl+up')
   userEvent.keyboard('{Control>}{ArrowUp}{ArrowUp}{ArrowUp}{ArrowUp}{/Control}')
   expect(counter).toBe(2)
 
-  handler.add('ctrl+up', increment)
+  handler.enable('ctrl+up')
   userEvent.keyboard('{Control>}{ArrowUp}{ArrowUp}{ArrowUp}{/Control}')
   expect(counter).toBe(5)
+
+  handler.remove('ctrl+up', increment)
+  userEvent.keyboard('{Control>}{ArrowUp}{ArrowUp}{ArrowUp}{ArrowUp}{/Control}')
+  expect(counter).toBe(5)
+
+  handler.add('ctrl+up', increment)
+  userEvent.keyboard('{Control>}{ArrowUp}{ArrowUp}{/Control}')
+  expect(counter).toBe(7)
 
   userEvent.keyboard('{Escape}')
   expect(counter).toBe(0)
 
-  handler.removeListener(window)
+  window.removeEventListener('keydown', handler.handle)
   userEvent.keyboard('{Control>}{ArrowUp}{ArrowUp}{ArrowUp}{ArrowUp}{/Control}')
   expect(counter).toBe(0)
 })

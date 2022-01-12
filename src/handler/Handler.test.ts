@@ -12,7 +12,7 @@ describe('Handler', () => {
     history: [],
     historySize: 0,
     bindings: new Map(),
-    targets: new Set(),
+    disabledSequenceCodes: new Set(),
   })
 
   const fns = fnMocks('ctrl+a1', 'ctrl+a2', 'ctrl+alt plus', 'ctrl+shift+space c')

@@ -26,7 +26,7 @@ export function state(value: Partial<HandlerState> = {}): HandlerState {
     history: [],
     historySize: 0,
     bindings: new Map(),
-    targets: new Set(),
+    disabledSequenceCodes: new Set(),
     ...value,
   }
 }
