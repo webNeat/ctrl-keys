@@ -3,7 +3,7 @@
   "author": "Amine Ben hammou",
   "description": "A Typescript library to handle keybindings efficiently.",
   "license": "MIT",
-  "version": "1.0.4-alpha",
+  "version": "1.0.5-alpha",
   "source": "src/index.ts",
   "main": "dist/index.js",
   "module": "dist/module.js",
@@ -15,6 +15,7 @@
     "node": ">=10"
   },
   "scripts": {
+    "bench": "ts-node tests/benchmark.ts",
     "build": "parcel build",
     "test": "jest",
     "test-coverage": "jest --coverage"
@@ -28,9 +29,15 @@
     "@testing-library/dom": "^8.11.1",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.0.2",
+    "@types/jsdom": "^16.2.14",
+    "benny": "^3.7.1",
+    "global-jsdom": "^8.4.0",
     "jest": "^27.3.1",
+    "jsdom": "^19.0.0",
     "parcel": "^2.0.1",
+    "shortcuts": "^1.8.1",
     "ts-jest": "^27.0.7",
+    "ts-node": "^10.4.0",
     "tslib": "^2.3.1",
     "typescript": "^4.4.4"
   }

@@ -2,8 +2,8 @@
   // see https://www.typescriptlang.org/tsconfig to better understand tsconfigs
   "include": ["src", "types"],
   "compilerOptions": {
-    "module": "ESNext",
-    "lib": ["dom", "esnext"],
+    "module": "CommonJS",
+    "lib": ["dom", "ES2015"],
     "importHelpers": true,
     // output .d.ts declaration files for consumers
     "declaration": true,
