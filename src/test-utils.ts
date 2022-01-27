@@ -1,7 +1,8 @@
+import {KeyValue} from '.'
 import {codes} from './constants'
 import {encodeKey, encodeSequence} from './encode'
 import {normalizeKey, normalizeSequence} from './normalize'
-import {Callback, Character, EncodedSequence, HandlerState, Modifiers, SpecialKey, StringKey} from './types'
+import {Callback, EncodedSequence, HandlerState, Modifiers, StringKey} from './types'
 
 export function keyCode(key: StringKey) {
   return encodeKey(codes, normalizeKey({}, key))
@@ -31,7 +32,7 @@ export function state(value: Partial<HandlerState> = {}): HandlerState {
   }
 }
 
-export function event(...keys: Array<Modifiers[keyof Modifiers] | Character | SpecialKey>): KeyboardEvent {
+export function event(...keys: Array<Modifiers[keyof Modifiers] | KeyValue>): KeyboardEvent {
   return new KeyboardEvent('keydown', {
     ctrlKey: keys.includes('ctrl'),
     altKey: keys.includes('alt'),

@@ -1,5 +1,5 @@
 import {keyCode, seqCode} from './test-utils'
-import {Character, EncodedKey, Modifiers} from './types'
+import {KeyValue, EncodedKey, Modifiers} from './types'
 import {encodeEvent, encodeKey, encodeSequence, getCharacterCode, getModifiersCode, getSequencesCodes, getSequenceSize} from './encode'
 
 const codes = {
@@ -72,9 +72,9 @@ describe('encodeKey', () => {
     expect(encodeKey(codes, ['ctrl', 'alt', 'meta', 'shift', 'a'])).toBe(0b0000000101111)
   })
   it('encodes a modifier key event', () => {
-    expect(encodeKey(codes, ['ctrl', 'alt', 'ctrl' as Character])).toBe(0b0000000001100)
-    expect(encodeKey(codes, ['ctrl', 'alt', 'alt' as Character])).toBe(0b0000000001100)
-    expect(encodeKey(codes, ['alt', 'meta', 'meta' as Character])).toBe(0b0000000000110)
+    expect(encodeKey(codes, ['ctrl', 'alt', 'ctrl' as KeyValue])).toBe(0b0000000001100)
+    expect(encodeKey(codes, ['ctrl', 'alt', 'alt' as KeyValue])).toBe(0b0000000001100)
+    expect(encodeKey(codes, ['alt', 'meta', 'meta' as KeyValue])).toBe(0b0000000000110)
   })
   it('encodes unknown key event', () => {
     expect(encodeKey(codes, ['%'])).toBe(0b0000000000000)

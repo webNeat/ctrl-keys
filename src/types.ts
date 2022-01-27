@@ -1,11 +1,9 @@
 import {Join, SubArray, MutableTuple} from 'just-types'
-import {characters, codes, modifiers, specialKeys} from './constants'
+import {characters, codes, modifiers} from './constants'
 
 export type Modifiers = MutableTuple<typeof modifiers>
-export type Character = typeof characters[number]
-export type SpecialKey = typeof specialKeys[number]
 export type Codes = typeof codes
-export type KeyValue = Character | SpecialKey
+export type KeyValue = typeof characters[number]
 export type KeyAliases = Record<string, KeyValue>
 
 type Optional<A extends any[]> = A | []
