@@ -1,2 +1,4 @@
+import {createHandler} from './handler'
+
 export * from './types'
-export {createHandler} from './handler'
+export default createHandler

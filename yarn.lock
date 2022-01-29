@@ -3964,10 +3964,10 @@ json5@2.x, json5@^2.1.2, json5@^2.2.0:
   dependencies:
     minimist "^1.2.5"
 
-just-types@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/just-types/-/just-types-1.1.0.tgz#619d2c74eb8167975473b7e10102b60edbcb55c3"
-  integrity sha512-C5NBW7dpLuqdsiqOGpfYleHIvdLVoR1X776Y8hizKzKWYBm6kdR5FiGVK/ED6swhREc4wrVoFoc1xQBbVE28mg==
+just-types@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/just-types/-/just-types-1.4.0.tgz#d0fe1839ec5bf02f5b7dfd56dd3cbf1f7d24dee8"
+  integrity sha512-AwB+YtZsIvhgiE7zAigaGQQwBPG/0kJuCb57VYh1XDFxO5kEmYKz2FyxxIhLbMG95LLwuYAi9LYkclc9kXzycA==
 
 kleur@^3.0.3:
   version "3.0.3"

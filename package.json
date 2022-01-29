@@ -21,7 +21,7 @@
     "test-coverage": "jest --coverage"
   },
   "dependencies": {
-    "just-types": "^1.1.0"
+    "just-types": "^1.4.0"
   },
   "devDependencies": {
     "@parcel/packager-ts": "^2.2.1",

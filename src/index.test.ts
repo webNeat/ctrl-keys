@@ -1,12 +1,12 @@
 import userEvent from '@testing-library/user-event'
-import {createHandler} from '../src'
+import keys from '.'
 
 test('basic usage', () => {
   let counter = 0
   const increment = () => (counter += 1)
   const decrement = () => (counter -= 1)
   const reset = () => (counter = 0)
-  const handler = createHandler().add('ctrl+up', increment).add('ctrl+down', decrement).add('esc', reset)
+  const handler = keys().add('ctrl+up', increment).add('ctrl+down', decrement).add('esc', reset)
   window.addEventListener('keydown', handler.handle)
 
   userEvent.keyboard('{Control>}{ArrowUp}{/Control}')
