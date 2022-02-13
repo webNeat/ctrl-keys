@@ -20,6 +20,7 @@ A Typescript library to handle keybindings efficiently.
   - [Removing keybindings](#removing-keybindings)
   - [Disabling and enabling keybindings](#disabling-and-enabling-keybindings)
   - [Handling keyboard events](#handling-keyboard-events)
+- [Comparaison with other keybindings libraries](#comparaison-with-other-keybindings-libraries)
 
 # Features
 - Zero code dependencies (Uses [`just-types`](https://github.com/webNeat/just-types) for types).
@@ -196,3 +197,17 @@ window.addEventListener('keydown', event => {
   handler.handle(event)
 })
 ```
+
+**Note** `event.key` is used when matching events against keybindings.
+
+# Comparaison with other keybindings libraries
+
+Before creating this library, I looked around for existing libraries and found some good ones, but none of them provided everything I wanted.
+
+|  | ctrl-keys | [tinykeys](https://github.com/jamiebuilds/tinykeys) | [hotkeys](https://github.com/jaywcjlove/hotkeys) | [shortcuts](https://github.com/fabiospampinato/shortcuts) |
+| ---                                                  | ---               | ---     | ---    | ---     | 
+| Bundle size                                          | 1.23 kB           | 0.72 kB | 2.5 kB | 4.4 kB  |
+| Support for multiple keys sequences                  | ✅ (up to 4 keys) | ✅     | ❌    | ✅      |
+| Dynamically add/remove keybindings                   | ✅                | ❌     | ✅    | ✅      |
+| Gives handler instead of adding listener to `window` | ✅                | ✅     | ❌    | ❌      |
+| Typescript autocomplete for keybindings              | ✅                | ❌     | ❌    | ❌      |
