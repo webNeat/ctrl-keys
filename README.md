@@ -211,3 +211,5 @@ Before creating this library, I looked around for existing libraries and found s
 | Dynamically add/remove keybindings                   | ✅                | ❌     | ✅    | ✅      |
 | Gives handler instead of adding listener to `window` | ✅                | ✅     | ❌    | ❌      |
 | Typescript autocomplete for keybindings              | ✅                | ❌     | ❌    | ❌      |
+
+[Click here to check out the performance benchmarks](benchmark)

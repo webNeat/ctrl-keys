@@ -16,6 +16,7 @@
     "node": ">=10"
   },
   "scripts": {
+    "bench": "cd benchmark && yarn && yarn build",
     "build": "parcel build",
     "test": "jest",
     "test-coverage": "jest --coverage"
