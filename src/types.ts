@@ -1,8 +1,9 @@
 import {Join, SubArray, MutableTuple} from 'just-types'
-import {codes, modifiers, aliases} from './constants'
+import {codes, modifiers, aliases, chars} from './constants'
 
 export type Modifiers = MutableTuple<typeof modifiers>
 export type Codes = typeof codes
+export type Chars = typeof chars
 export type DefaultAliases = typeof aliases
 export type KeyValue =
   | '_'

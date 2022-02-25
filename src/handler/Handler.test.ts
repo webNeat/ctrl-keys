@@ -15,7 +15,7 @@ describe('Handler', () => {
     disabledSequenceCodes: new Set(),
   })
 
-  const fns = fnMocks('ctrl+a1', 'ctrl+a2', 'ctrl+alt plus', 'ctrl+shift+space c')
+  const fns = fnMocks('ctrl+a1', 'ctrl+a2', 'ctrl+alt ctrl+plus', 'ctrl+shift+space c')
 
   it(`adds bindings`, () => {
     handler.add('ctrl+a', fns.get('ctrl+a1'))
@@ -36,12 +36,12 @@ describe('Handler', () => {
   })
 
   it(`handles multi-keys sequences`, () => {
-    handler.add(['ctrl+alt', 'plus'], fns.get('ctrl+alt plus'))
+    handler.add(['ctrl+alt', 'ctrl+plus'], fns.get('ctrl+alt ctrl+plus'))
     handler.add(['ctrl+shift+space', 'c'], fns.get('ctrl+shift+space c'))
 
     handler.handle(event('ctrl', 'alt'))
-    handler.handle(event('+'))
-    fns.call('ctrl+alt plus').checkCalls()
+    handler.handle(event('ctrl', '+'))
+    fns.call('ctrl+alt ctrl+plus').checkCalls()
 
     handler.handle(event('ctrl', 'shift', ' '))
     handler.handle(event('c'))

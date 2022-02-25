@@ -1,6 +1,6 @@
 import {normalizeSequence} from '../normalize'
-import {Callback, HandlerState, KeyAliases, StringKey} from '../types'
-import {encodeEvent, encodeSequence, getSequencesCodes, getSequenceSize} from '../encode'
+import {EncodedKey, Callback, HandlerState, KeyAliases, StringKey} from '../types'
+import {encodeEvent, encodeSequence, getCharacterCode, getModifiersCode, getSequencesCodes, getSequenceSize} from '../encode'
 
 export function addBinding<Aliases extends KeyAliases>(state: HandlerState<Aliases>, sequence: Array<StringKey<Aliases>>, fn: Callback) {
   const sequenceCode = encodeSequence(state.codes, normalizeSequence(state.aliases, sequence))
@@ -37,6 +37,10 @@ export function disableSequence<Aliases extends KeyAliases>(state: HandlerState<
 
 export function handleEvent<Aliases extends KeyAliases>(state: HandlerState<Aliases>, event: KeyboardEvent) {
   const key = encodeEvent(state.codes, event)
+  const previousKey = state.history.at(-1)
+  if (shouldReplace(previousKey, key)) {
+    state.history.pop()
+  }
   state.history.push(key)
   if (state.history.length > state.historySize) {
     state.history.shift()
@@ -60,4 +64,11 @@ export function updateHistorySize<Aliases extends KeyAliases>(state: HandlerStat
     state.historySize = Math.max(state.historySize, getSequenceSize(code))
   }
   return state
+}
+
+function shouldReplace(previousKey: EncodedKey | undefined, newKey: EncodedKey) {
+  if (previousKey === undefined) return false
+  if (getCharacterCode(previousKey) > 0) return false
+  const previousModifiers = getModifiersCode(previousKey)
+  return (previousModifiers & getModifiersCode(newKey)) === previousModifiers
 }
