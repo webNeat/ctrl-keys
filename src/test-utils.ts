@@ -1,8 +1,13 @@
-import {KeyValue} from '.'
-import {codes} from './constants'
-import {encodeKey, encodeSequence} from './encode'
+import {ArrayKey, EncodedKey, KeyValue} from '.'
+import {chars, codes} from './constants'
+import {encodeKey, encodeSequence, getCharacterCode, getModifiersCode} from './encode'
 import {normalizeKey, normalizeSequence} from './normalize'
 import {Callback, EncodedSequence, HandlerState, Modifiers, StringKey} from './types'
+
+const CTRL_MASK = 0b1000
+const ALT_MASK = 0b0100
+const META_MASK = 0b0010
+const SHIFT_MASK = 0b0001
 
 export function keyCode(key: StringKey) {
   return encodeKey(codes, normalizeKey({}, key))
@@ -38,8 +43,30 @@ export function event(...keys: Array<Modifiers[keyof Modifiers] | KeyValue>): Ke
     altKey: keys.includes('alt'),
     metaKey: keys.includes('meta'),
     shiftKey: keys.includes('shift'),
-    key: keys[keys.length - 1] as string,
+    key: keys.at(-1) as string,
   })
+}
+
+export function decodeKey(encodedKey: EncodedKey): ArrayKey {
+  const charCode = getCharacterCode(encodedKey)
+  const modifiersCode = getModifiersCode(encodedKey)
+  const key = []
+  if (modifiersCode & CTRL_MASK) key.push('ctrl')
+  if (modifiersCode & ALT_MASK) key.push('alt')
+  if (modifiersCode & META_MASK) key.push('meta')
+  if (modifiersCode & SHIFT_MASK) key.push('shift')
+  const c = chars[charCode]
+  if (c) key.push(c)
+  return key as any
+}
+
+export function decodeSequence(sequence: EncodedSequence): ArrayKey[] {
+  const keys = []
+  while (sequence > 0) {
+    keys.unshift(decodeKey(sequence % 2 ** 13))
+    sequence = sequence >> 13
+  }
+  return keys
 }
 
 export function fnMocks<Name extends string>(...names: Name[]) {
