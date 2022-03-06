@@ -35,7 +35,7 @@ return {duration, memory}
 
 ### Results
 
-<table><tr><th>library</th><th>duration</th><th>memory usage</th></tr><tr><td>ctrl-keys</td><td>54 ms</td><td>5136 kb</td></tr><tr><td>shortcuts</td><td>62 ms</td><td>4846 kb</td></tr><tr><td>tinykeys</td><td>67 ms</td><td>4971 kb</td></tr></table>
+<table><tr><th>library</th><th>duration</th><th>memory usage</th></tr><tr><td>ctrl-keys</td><td>53 ms</td><td>4734 kb</td></tr><tr><td>shortcuts</td><td>59 ms</td><td>4845 kb</td></tr><tr><td>tinykeys</td><td>66 ms</td><td>4983 kb</td></tr></table>
 
 ## Multiple keys shortcut
 
@@ -45,4 +45,4 @@ return {duration, memory}
 
 ### Results
 
-<table><tr><th>library</th><th>duration</th><th>memory usage</th></tr><tr><td>ctrl-keys</td><td>55 ms</td><td>4746 kb</td></tr><tr><td>shortcuts</td><td>66 ms</td><td>4942 kb</td></tr><tr><td>tinykeys</td><td>74 ms</td><td>5049 kb</td></tr></table>
+<table><tr><th>library</th><th>duration</th><th>memory usage</th></tr><tr><td>ctrl-keys</td><td>55 ms</td><td>4711 kb</td></tr><tr><td>shortcuts</td><td>58 ms</td><td>4963 kb</td></tr><tr><td>tinykeys</td><td>69 ms</td><td>5056 kb</td></tr></table>

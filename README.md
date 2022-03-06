@@ -25,7 +25,7 @@ A Typescript library to handle keybindings efficiently.
 # Features
 - Zero code dependencies (Uses [`just-types`](https://github.com/webNeat/just-types) for types).
 - Small bundle size **< 2kb**.
-- Super fast performance.
+- Super fast performance ([see benchmark](#performance-comparaison)).
 - Fully typed, offers autocomplete for keybindings.
 - Handles multi-keys sequences like `ctrl+k ctrl+b` (Inspired by [vscode keybindings](https://code.visualstudio.com/docs/getstarted/keybindings#_keyboard-rules)).
 - Does not add global listeners to the `window`, instead it lets you create multiple handlers and bind them to any DOM elements.
@@ -204,6 +204,8 @@ window.addEventListener('keydown', event => {
 
 Before creating this library, I looked around for existing libraries and found some good ones, but none of them provided everything I wanted.
 
+## Some features comparaison
+
 |  | ctrl-keys | [tinykeys](https://github.com/jamiebuilds/tinykeys) | [hotkeys](https://github.com/jaywcjlove/hotkeys) | [shortcuts](https://github.com/fabiospampinato/shortcuts) |
 | ---                                                  | ---               | ---     | ---    | ---     | 
 | Bundle size                                          | 1.23 kB           | 0.72 kB | 2.5 kB | 4.4 kB  |
@@ -212,4 +214,8 @@ Before creating this library, I looked around for existing libraries and found s
 | Gives handler instead of adding listener to `window` | ✅                | ✅     | ❌    | ❌      |
 | Typescript autocomplete for keybindings              | ✅                | ❌     | ❌    | ❌      |
 
-[Click here to check out the performance benchmarks](benchmark)
+## Performance comparaison
+
+<table><tr><th>library</th><th>duration</th><th>memory usage</th></tr><tr><td>ctrl-keys</td><td>55 ms</td><td>4711 kb</td></tr><tr><td>shortcuts</td><td>58 ms</td><td>4963 kb</td></tr><tr><td>tinykeys</td><td>69 ms</td><td>5056 kb</td></tr></table>
+
+The results above are of a benchmark of handling a 3 keys sequence 1000 times. [Click here for details](benchmark)

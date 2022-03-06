@@ -954,10 +954,10 @@ csso@^4.2.0:
   dependencies:
     css-tree "^1.1.2"
 
-ctrl-keys@^1.0.0-beta.1:
-  version "1.0.0-beta.1"
-  resolved "https://registry.yarnpkg.com/ctrl-keys/-/ctrl-keys-1.0.0-beta.1.tgz#a25eeea67b1bde3752e47c7faf925f4246225d4b"
-  integrity sha512-gjQmFGYhXS4nNtef9YjmcEkiu5ySzgwALJjO48AQ2sYYbN1B4qy8kRFPrQ3IJJQ6z6EoNrDdZI/iWtl90qmcmg==
+ctrl-keys@^1.0.0-beta.3:
+  version "1.0.0-beta.3"
+  resolved "https://registry.yarnpkg.com/ctrl-keys/-/ctrl-keys-1.0.0-beta.3.tgz#ae160863bb87119dcb0dc75a1da10abd47c8eb8a"
+  integrity sha512-mUgMS/CaH6E1jCuuJxsahL2D4zNi25UIhzLxPrsC2kOY72uBn2hGs47YGgMi6pdDV9GqxOS4zBxGwmNf6vJteg==
   dependencies:
     just-types "^1.4.0"
 
