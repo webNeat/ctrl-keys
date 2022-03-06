@@ -1,4 +1,8 @@
-import {createHandler} from './handler'
+import {Handler} from './Handler'
+import {createState} from './state'
 
 export * from './types'
-export default createHandler
+
+export default function createHandler() {
+  return new Handler(createState())
+}

@@ -1,14 +1,9 @@
-import {codes} from '../constants'
-import {event, fnMocks} from '../test-utils'
+import {fnMocks} from './test-utils'
 import {Handler} from './Handler'
+import {createEvent} from './event'
 
 describe('Handler', () => {
   const handler = new Handler({
-    codes,
-    aliases: {
-      space: ' ',
-      plus: '+',
-    },
     history: [],
     historySize: 0,
     bindings: new Map(),
@@ -21,30 +16,30 @@ describe('Handler', () => {
     handler.add('ctrl+a', fns.get('ctrl+a1'))
     handler.add('ctrl+a', fns.get('ctrl+a2'))
 
-    handler.handle(event('ctrl', 'a'))
+    handler.handle(createEvent('ctrl+a'))
     fns.call('ctrl+a1', 'ctrl+a2').checkCalls()
 
-    handler.handle(event('ctrl', 'b'))
+    handler.handle(createEvent('ctrl+b'))
     fns.checkCalls()
   })
 
   it(`removes bindings`, () => {
     handler.remove('ctrl+a', fns.get('ctrl+a2'))
 
-    handler.handle(event('ctrl', 'a'))
+    handler.handle(createEvent('ctrl+a'))
     fns.call('ctrl+a1').checkCalls()
   })
 
   it(`handles multi-keys sequences`, () => {
-    handler.add(['ctrl+alt', 'ctrl+plus'], fns.get('ctrl+alt ctrl+plus'))
-    handler.add(['ctrl+shift+space', 'c'], fns.get('ctrl+shift+space c'))
+    handler.add('ctrl+alt', 'ctrl+plus', fns.get('ctrl+alt ctrl+plus'))
+    handler.add('ctrl+shift+space', 'c', fns.get('ctrl+shift+space c'))
 
-    handler.handle(event('ctrl', 'alt'))
-    handler.handle(event('ctrl', '+'))
+    handler.handle(createEvent('ctrl+alt'))
+    handler.handle(createEvent('ctrl++'))
     fns.call('ctrl+alt ctrl+plus').checkCalls()
 
-    handler.handle(event('ctrl', 'shift', ' '))
-    handler.handle(event('c'))
+    handler.handle(createEvent('ctrl+shift+ '))
+    handler.handle(createEvent('c'))
     fns.call('ctrl+shift+space c').checkCalls()
   })
 })
