@@ -1,5 +1,5 @@
-import userEvent from '@testing-library/user-event'
 import keys from '.'
+import userEvent from '@testing-library/user-event'
 
 test('basic usage', () => {
   let counter = 0

@@ -1,11 +1,38 @@
-import {Join, SubArray, MutableTuple} from 'just-types'
-import {codes, modifiers, aliases, chars} from './constants'
+import {Join, SubArray} from 'just-types'
 
-export type Modifiers = MutableTuple<typeof modifiers>
-export type Codes = typeof codes
-export type Chars = typeof chars
-export type DefaultAliases = typeof aliases
-export type KeyValue =
+export type AliasCharacter = 'space' | 'plus' | 'up' | 'down' | 'left' | 'right' | 'esc'
+export type Modifiers = ['ctrl', 'alt', 'meta', 'shift']
+export type Modifier = Modifiers[number]
+
+export type Key = Join<NormalizedKey<Character | AliasCharacter>, '+'>
+export type NormalizedKey<C extends string = Character> = SubArray<Modifiers> | [Modifier | C] | [...SubArray<Modifiers>, Modifier | C]
+
+export type EncodedKey = number
+
+export type Sequence = Key[]
+export type NormalizedSequence = NormalizedKey[]
+export type EncodedSequence = number
+
+export type KeyboardEventType = 'keydown' | 'keyup'
+export type Callback = (event?: KeyboardEvent) => any
+export type KeyboardEventListener = (event: KeyboardEvent) => any
+export type State = {
+  history: EncodedKey[]
+  historySize: number
+  disabledSequenceCodes: Set<EncodedSequence>
+  bindings: Map<EncodedSequence, Set<Callback>>
+}
+
+export type Binding = [Key, Callback] | [Key, Key, Callback] | [Key, Key, Key, Callback] | [Key, Key, Key, Key, Callback]
+export interface HandlerInterface {
+  add(...args: Binding): this
+  remove(...args: Binding): this
+  enable(...keys: Sequence): this
+  disable(...keys: Sequence): this
+  handle(event: KeyboardEvent): boolean
+}
+
+export type Character =
   | '_'
   | '0'
   | '1'
@@ -114,37 +141,3 @@ export type KeyValue =
   | 'f21'
   | 'f22'
   | 'f23'
-
-export type KeyAliases = Record<string, KeyValue>
-
-type Optional<A extends any[]> = A | []
-export type ArrayKey<K extends string = KeyValue> = SubArray<Modifiers> | [...Optional<SubArray<Modifiers>>, K]
-// @ts-ignore `keyof K` is not infered as string!
-export type StringKey<KA extends KeyAliases = {}> = Join<ArrayKey<KeyValue | keyof KA>, '+'>
-
-export type EncodedKey = number
-export type EncodedSequence = number
-
-export type Callback = (event?: KeyboardEvent) => any
-export type KeyboardEventListener = (event: KeyboardEvent) => any
-
-export type HandlerState<KA extends KeyAliases = {}> = {
-  codes: Record<string, EncodedKey>
-  aliases: KA
-  history: EncodedKey[]
-  historySize: number
-  disabledSequenceCodes: Set<number>
-  bindings: Map<EncodedSequence, Set<Callback>>
-}
-
-export interface HandlerInterface<KA extends KeyAliases = {}> {
-  add(key: StringKey<KA>, fn: Callback): this
-  add(keys: Array<StringKey<KA>>, fn: Callback): this
-  remove(key: StringKey<KA>, fn: Callback): this
-  remove(keys: Array<StringKey<KA>>, fn: Callback): this
-  enable(key: StringKey<KA>): this
-  enable(keys: Array<StringKey<KA>>): this
-  disable(key: StringKey<KA>): this
-  disable(keys: Array<StringKey<KA>>): this
-  handle(event: KeyboardEvent): boolean
-}
