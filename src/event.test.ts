@@ -2,21 +2,30 @@ import {encodeEvent, createEvent} from './event'
 import {encode} from './test-utils'
 
 describe('createEvent', () => {
-  const keyboardEvent = (type: string, e: Partial<KeyboardEvent>): KeyboardEvent =>
-    new KeyboardEvent(type, {ctrlKey: false, altKey: false, metaKey: false, shiftKey: false, ...e})
+  const expectEventsEqual = (event: KeyboardEvent, type: string, data: Partial<KeyboardEvent>) => {
+    const expectedEvent = new KeyboardEvent(type, {ctrlKey: false, altKey: false, metaKey: false, shiftKey: false, ...data})
+    expect(event).toBeInstanceOf(KeyboardEvent)
+    expect(event.type).toBe(type)
+    expect(event.ctrlKey).toBe(expectedEvent.ctrlKey)
+    expect(event.altKey).toBe(expectedEvent.altKey)
+    expect(event.metaKey).toBe(expectedEvent.metaKey)
+    expect(event.shiftKey).toBe(expectedEvent.shiftKey)
+    expect(event.key).toBe(expectedEvent.key)
+  }
 
   it('creates an event without modifiers', () => {
-    expect(createEvent('a')).toEqual(keyboardEvent('keydown', {key: 'a'}))
-    expect(createEvent('up')).toEqual(keyboardEvent('keydown', {key: 'arrowup'}))
-    expect(createEvent('-', 'keyup')).toEqual(keyboardEvent('keyup', {key: '-'}))
-    expect(createEvent('é' as any)).toEqual(keyboardEvent('keydown', {key: 'é'}))
+    expectEventsEqual(createEvent('a'), 'keydown', {key: 'a'})
+    expectEventsEqual(createEvent('up'), 'keydown', {key: 'arrowup'})
+    expectEventsEqual(createEvent('-', 'keyup'), 'keyup', {key: '-'})
+    expectEventsEqual(createEvent('é' as any), 'keydown', {key: 'é'})
   })
 
   it('creates an event with modifiers', () => {
-    expect(createEvent('ctrl+a')).toEqual(keyboardEvent('keydown', {ctrlKey: true, key: 'a'}))
-    expect(createEvent('ctrl+alt+a', 'keyup')).toEqual(keyboardEvent('keyup', {ctrlKey: true, altKey: true, key: 'a'}))
-    expect(createEvent('meta+shift+up')).toEqual(keyboardEvent('keydown', {metaKey: true, shiftKey: true, key: 'arrowup'}))
-    expect(createEvent('alt+é' as any)).toEqual(keyboardEvent('keydown', {altKey: true, key: 'é'}))
+    expectEventsEqual(createEvent('ctrl+a'), 'keydown', {ctrlKey: true, key: 'a'})
+    expectEventsEqual(createEvent('ctrl+alt'), 'keydown', {ctrlKey: true, altKey: true, key: 'Alt'})
+    expectEventsEqual(createEvent('ctrl+alt+a', 'keyup'), 'keyup', {ctrlKey: true, altKey: true, key: 'a'})
+    expectEventsEqual(createEvent('meta+shift+up'), 'keydown', {metaKey: true, shiftKey: true, key: 'arrowup'})
+    expectEventsEqual(createEvent('alt+é' as any), 'keydown', {altKey: true, key: 'é'})
   })
 })
 

@@ -15,7 +15,7 @@ export function createEvent(key: Key, type: KeyboardEventType = 'keydown') {
     altKey: parts.includes('alt'),
     metaKey: parts.includes('meta'),
     shiftKey: parts.includes('shift'),
-    key: parts.at(-1) as string,
+    key: eventKey,
   })
 }
 
