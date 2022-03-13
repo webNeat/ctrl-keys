@@ -1,7 +1,7 @@
 import {MemoryFS} from '@parcel/fs'
 import {Parcel, createWorkerFarm} from '@parcel/core'
 
-export async function bundle(path) {
+export async function bundle(path: string) {
   const workerFarm = createWorkerFarm()
   const outputFS = new MemoryFS(workerFarm)
   const bundler = new Parcel({
