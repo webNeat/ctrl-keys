@@ -1,7 +1,7 @@
-import {Character} from './types'
+import {Character, NormalizedSequence} from './types'
 import {codes} from './constants'
 import {encode} from './test-utils'
-import {encodeSequence, getEncodedSequencesFromHistory, getSequenceSize, normalizeSequence} from './sequence'
+import {decodeSequence, encodeSequence, getEncodedSequencesFromHistory, getSequenceSize, normalizeSequence} from './sequence'
 
 describe('normalizeSequence', () => {
   it(`normalizes many keys`, () => {
@@ -62,7 +62,21 @@ describe('encodeSequence', () => {
 })
 
 describe('decodeSequence', () => {
-  // TODO ...
+  it('decodes sequences', () => {
+    const sequences: NormalizedSequence[] = [
+      [['a'], ['-']],
+      [['ctrl', 'a'], ['-']],
+      [['ctrl']],
+      [['ctrl'], ['a']],
+      [
+        ['ctrl', 'alt', 'a'],
+        ['ctrl', 'alt', 'meta'],
+      ],
+    ]
+    for (const seq of sequences) {
+      expect(decodeSequence(encodeSequence(seq))).toEqual(seq)
+    }
+  })
 })
 
 describe('getSequenceSize', () => {

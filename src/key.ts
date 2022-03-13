@@ -47,5 +47,7 @@ export function shouldOverride(previousKey: EncodedKey | undefined, newKey: Enco
   if (previousKey === undefined) return false
   if (getCharacterCode(previousKey) > 0) return false
   const previousModifiers = getModifiersCode(previousKey)
+  const newModifiers = getModifiersCode(newKey)
+  if (previousModifiers === newModifiers && getCharacterCode(newKey) === 0) return false
   return (previousModifiers & getModifiersCode(newKey)) === previousModifiers
 }

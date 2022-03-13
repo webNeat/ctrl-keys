@@ -1,6 +1,16 @@
 import {Sequence} from './types'
-import {addBinding, createState, handleEvent, removeBinding, updateHistorySize} from './state'
-import {bindings, fnMocks} from './test-utils'
+import {
+  addBinding,
+  addEventToHistory,
+  createState,
+  disableSequence,
+  enableSequence,
+  getMatchingCallbacks,
+  handleEvent,
+  removeBinding,
+  updateHistorySize,
+} from './state'
+import {bindings, encode, fnMocks} from './test-utils'
 import {createEvent} from './event'
 
 describe('addBinding', () => {
@@ -67,19 +77,109 @@ describe('removeBinding', () => {
 })
 
 describe('enableSequence', () => {
-  // TODO ...
+  it('enables a disabled sequence', () => {
+    const seqCode = encode('ctrl+a', 'alt+b')
+    let state = createState({
+      disabledSequenceCodes: new Set([seqCode]),
+    })
+    expect(state.disabledSequenceCodes.has(seqCode)).toBe(true)
+    state = enableSequence(state, ['ctrl+a', 'alt+b'])
+    expect(state.disabledSequenceCodes.has(seqCode)).toBe(false)
+  })
+  it('does nothing if the sequence is not disabled', () => {
+    const seqCode = encode('ctrl+a', 'alt+b')
+    let state = createState({
+      disabledSequenceCodes: new Set([seqCode]),
+    })
+    expect(state.disabledSequenceCodes.has(seqCode)).toBe(true)
+    state = enableSequence(state, ['ctrl+a', 'alt+c'])
+    expect(state.disabledSequenceCodes.has(seqCode)).toBe(true)
+  })
 })
 
 describe('disableSequence', () => {
-  // TODO ...
+  it('disables a sequence', () => {
+    const seqCode = encode('ctrl+a', 'alt+b')
+    let state = createState()
+    expect(state.disabledSequenceCodes.has(seqCode)).toBe(false)
+    state = disableSequence(state, ['ctrl+a', 'alt+b'])
+    expect(state.disabledSequenceCodes.has(seqCode)).toBe(true)
+  })
+  it('does nothing if the sequence is already disabled', () => {
+    const seqCode = encode('ctrl+a', 'alt+b')
+    let state = createState({
+      disabledSequenceCodes: new Set([seqCode]),
+    })
+    state = disableSequence(state, ['ctrl+a', 'alt+b'])
+    expect(state.disabledSequenceCodes.has(seqCode)).toBe(true)
+  })
 })
 
 describe('addEventToHistory', () => {
-  // TODO ...
+  it('adds event to history', () => {
+    let state = createState({
+      historySize: 3,
+      history: [],
+    })
+    state = addEventToHistory(state, createEvent('ctrl+up'))
+    expect(state.history).toEqual([encode('ctrl+up')])
+    state = addEventToHistory(state, createEvent('ctrl+alt+.'))
+    expect(state.history).toEqual([encode('ctrl+up'), encode('ctrl+alt+.')])
+  })
+
+  it('removes the oldest event if size becomes > historySize', () => {
+    let state = createState({
+      historySize: 1,
+      history: [],
+    })
+    state = addEventToHistory(state, createEvent('ctrl+up'))
+    expect(state.history).toEqual([encode('ctrl+up')])
+    state = addEventToHistory(state, createEvent('ctrl+alt+.'))
+    expect(state.history).toEqual([encode('ctrl+alt+.')])
+  })
 })
 
 describe('getMatchingCallbacks', () => {
-  // TODO ...
+  it('returns the matching callbacks', () => {
+    const fns = {
+      'ctrl+a': () => null,
+      'ctrl+alt+a': () => null,
+      'ctrl+a ctrl+b': () => null,
+      'ctrl ctrl+b': () => null,
+    }
+    const state = createState({
+      bindings: bindings(
+        [['ctrl+a'], fns['ctrl+a']],
+        [['ctrl+alt+a'], fns['ctrl+alt+a']],
+        [['ctrl+a', 'ctrl+b'], fns['ctrl+a ctrl+b']],
+        [['ctrl', 'ctrl+b'], fns['ctrl ctrl+b']]
+      ),
+    })
+
+    state.history = []
+    expect(getMatchingCallbacks(state)).toEqual([])
+
+    state.history = [encode('a')]
+    expect(getMatchingCallbacks(state)).toEqual([])
+
+    state.history = [encode('ctrl+a')]
+    expect(getMatchingCallbacks(state)).toEqual([fns['ctrl+a']])
+
+    state.history = [encode('ctrl+a'), encode('ctrl')]
+    expect(getMatchingCallbacks(state)).toEqual([])
+
+    state.history = [encode('ctrl+a'), encode('ctrl+b')]
+    expect(getMatchingCallbacks(state)).toEqual([fns['ctrl+a ctrl+b']])
+
+    state.history = [encode('ctrl+alt+a'), encode('ctrl+b')]
+    expect(getMatchingCallbacks(state)).toEqual([])
+
+    state.history = [encode('ctrl'), encode('ctrl+b')]
+    expect(getMatchingCallbacks(state)).toEqual([fns['ctrl ctrl+b']])
+
+    state.history = [encode('ctrl'), encode('ctrl+alt+a')]
+    expect(getMatchingCallbacks(state)).toEqual([fns['ctrl+alt+a']])
+  })
 })
 
 describe('handleEvent', () => {

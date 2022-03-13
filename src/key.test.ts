@@ -1,5 +1,6 @@
 import {codes} from './constants'
-import {encodeKey, getCharacterCode, getModifiersCode, normalizeKey} from './key'
+import {decodeKey, encodeKey, getCharacterCode, getModifiersCode, normalizeKey, shouldOverride} from './key'
+import {NormalizedKey} from './types'
 
 describe('normalizeKey', () => {
   it(`handles keys without modifiers`, () => {
@@ -58,7 +59,12 @@ describe('encodeKey', () => {
 })
 
 describe('decodeKey', () => {
-  // TODO ...
+  it('decodes keys', () => {
+    const keys: NormalizedKey[] = [['a'], ['-'], ['ctrl'], ['ctrl', 'alt', 'a'], ['ctrl', 'alt', 'meta']]
+    for (const key of keys) {
+      expect(decodeKey(encodeKey(key))).toEqual(key)
+    }
+  })
 })
 
 describe('getCharacterCode', () => {
@@ -81,5 +87,32 @@ describe('getModifiersCode', () => {
 })
 
 describe('shouldOverride', () => {
-  // TODO ...
+  it('returns false if no previous key', () => {
+    expect(shouldOverride(undefined, encodeKey(['a']))).toBe(false)
+    expect(shouldOverride(undefined, encodeKey(['ctrl']))).toBe(false)
+    expect(shouldOverride(undefined, encodeKey(['alt', 'b']))).toBe(false)
+  })
+  it('returns false if previous key already has a character', () => {
+    expect(shouldOverride(encodeKey(['a']), encodeKey(['a']))).toBe(false)
+    expect(shouldOverride(encodeKey(['a']), encodeKey(['b']))).toBe(false)
+    expect(shouldOverride(encodeKey(['a']), encodeKey(['meta', 'a']))).toBe(false)
+    expect(shouldOverride(encodeKey(['meta', 'a']), encodeKey(['alt', 'meta', 'a']))).toBe(false)
+    expect(shouldOverride(encodeKey(['meta', 'a']), encodeKey(['meta']))).toBe(false)
+    expect(shouldOverride(encodeKey(['meta', 'a']), encodeKey(['ctrl']))).toBe(false)
+  })
+  it('returns false if previous key has a modifier that is missing on the new key', () => {
+    expect(shouldOverride(encodeKey(['ctrl']), encodeKey(['alt']))).toBe(false)
+    expect(shouldOverride(encodeKey(['ctrl', 'alt']), encodeKey(['alt']))).toBe(false)
+    expect(shouldOverride(encodeKey(['ctrl', 'alt']), encodeKey(['alt', 'a']))).toBe(false)
+  })
+  it('returns false if previous key equals the new key', () => {
+    expect(shouldOverride(encodeKey(['ctrl']), encodeKey(['ctrl']))).toBe(false)
+    expect(shouldOverride(encodeKey(['ctrl', 'alt']), encodeKey(['ctrl', 'alt']))).toBe(false)
+  })
+  it('returns true if the previous key has only modifiers and the new key adds a modifier or a character to them', () => {
+    expect(shouldOverride(encodeKey(['ctrl']), encodeKey(['ctrl', 'a']))).toBe(true)
+    expect(shouldOverride(encodeKey(['ctrl']), encodeKey(['ctrl', 'alt']))).toBe(true)
+    expect(shouldOverride(encodeKey(['alt']), encodeKey(['ctrl', 'alt']))).toBe(true)
+    expect(shouldOverride(encodeKey(['ctrl', 'alt']), encodeKey(['ctrl', 'alt', 'a']))).toBe(true)
+  })
 })
