@@ -1,8 +1,8 @@
 import {Join, SubArray} from 'just-types'
 
-export type AliasCharacter = 'space' | 'plus' | 'up' | 'down' | 'left' | 'right' | 'esc'
-export type Modifiers = ['ctrl', 'alt', 'meta', 'shift']
+type Modifiers = ['ctrl', 'alt', 'meta', 'shift']
 export type Modifier = Modifiers[number]
+export type AliasCharacter = 'space' | 'plus' | 'up' | 'down' | 'left' | 'right' | 'esc'
 
 export type Key = Join<NormalizedKey<Character | AliasCharacter>, '+'>
 export type NormalizedKey<C extends string = Character> = SubArray<Modifiers> | [Modifier | C] | [...SubArray<Modifiers>, Modifier | C]
