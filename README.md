@@ -21,6 +21,7 @@ A Typescript library to handle keybindings efficiently.
   - [Disabling and enabling keybindings](#disabling-and-enabling-keybindings)
   - [Handling keyboard events](#handling-keyboard-events)
 - [Comparaison with other keybindings libraries](#comparaison-with-other-keybindings-libraries)
+- [Changelog](#changelog)
 
 # Features
 - Zero code dependencies (Uses [`just-types`](https://github.com/webNeat/just-types) for types).
@@ -219,3 +220,9 @@ Before creating this library, I looked around for existing libraries and found s
 <table><tr><th>library</th><th>duration</th><th>memory usage</th></tr><tr><td>ctrl-keys</td><td>55 ms</td><td>4711 kb</td></tr><tr><td>shortcuts</td><td>58 ms</td><td>4963 kb</td></tr><tr><td>tinykeys</td><td>69 ms</td><td>5056 kb</td></tr></table>
 
 The results above are of a benchmark of handling a 3 keys sequence 1000 times. [Click here for details](benchmark)
+
+# Changelog
+
+**1.0.0 (March 17th 2022)**
+
+- First release.
