@@ -1,6 +1,6 @@
 # ctrl-keys
 
-A Typescript library to handle keybindings efficiently.
+A tiny, super fast, typescript library to handle keybindings efficiently.
 
 [![Bundle size](https://img.shields.io/bundlephobia/minzip/ctrl-keys?style=flat-square)](https://bundlephobia.com/result?p=ctrl-keys)
 [![Tests Status](https://img.shields.io/github/workflow/status/webneat/ctrl-keys/Tests?style=flat-square)](https://github.com/webneat/ctrl-keys/actions?query=workflow:"Tests")
@@ -122,7 +122,7 @@ A key is represented by a string in the following format `{modifiers}+{character
 
 if you are using Typescript, it will offer autocomplete and help you detect typos when writing keys.
 
-![Typescript Autocomplete](screenshots/keys-autocomplete.gif)
+![Typescript Autocomplete](https://raw.githubusercontent.com/webNeat/ctrl-keys/main/screenshots/keys-autocomplete.gif)
 
 ## Adding new keybindings
 
@@ -219,7 +219,7 @@ Before creating this library, I looked around for existing libraries and found s
 
 <table><tr><th>library</th><th>duration</th><th>memory usage</th></tr><tr><td>ctrl-keys</td><td>55 ms</td><td>4711 kb</td></tr><tr><td>shortcuts</td><td>58 ms</td><td>4963 kb</td></tr><tr><td>tinykeys</td><td>69 ms</td><td>5056 kb</td></tr></table>
 
-The results above are of a benchmark of handling a 3 keys sequence 1000 times. [Click here for details](benchmark)
+The results above are of a benchmark of handling a 3 keys sequence 1000 times. [Click here for details](https://github.com/webNeat/ctrl-keys/benchmark)
 
 # Changelog
 

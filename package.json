@@ -1,7 +1,13 @@
 {
   "name": "ctrl-keys",
   "author": "Amine Ben hammou",
-  "description": "A Typescript library to handle keybindings efficiently.",
+  "description": "A tiny, super fast, typescript library to handle keybindings efficiently.",
+  "keywords": [
+    "typescript",
+    "keybindings",
+    "keyboard-shortcuts",
+    "keyboard-events"
+  ],
   "license": "MIT",
   "version": "1.0.0",
   "source": "src/index.ts",
