@@ -63,7 +63,7 @@ handler
   .add('ctrl+up', () => {
     // do something
   })
-  .add(['ctrl+shift+space', 'ctrl+shift+c'], () => {
+  .add('ctrl+shift+space', 'ctrl+shift+c', () => {
     // do something else ...
   })
 
@@ -89,10 +89,10 @@ The handler has the following interface
 
 ```ts
 interface HandlerInterface {
-  add(keys: Keys, fn: Callback): this
-  remove(keys: Keys, fn: Callback): this
-  enable(keys: Keys): this
-  disable(keys: Keys): this
+  add(...keys: Keys, fn: Callback): this
+  remove(...keys: Keys, fn: Callback): this
+  enable(...keys: Keys): this
+  disable(...keys: Keys): this
   handle(event: KeyboardEvent): boolean
 }
 ```
@@ -106,9 +106,7 @@ We will take a deeper look to each one of these methods bellow. But first, let's
 
 ## Defining keybindings
 
-The `keys` argument of the `add`, `remove`, `enable` and `disable` methods can be:
-- A string representing a single key, like `a`, `ctrl+v`, `alt+shift+d`.
-- An array containing **at most 4 keys**, like `['ctrl+space', 'ctrl+m', 'ctrl+n']`
+The methods `add`, `remove`, `enable` and `disable` can take **from 1 to 4** `keys`.
 
 A key is represented by a string in the following format `{modifiers}+{character}` where:
 - `modifiers` is any combination of the modifiers `ctrl`, `alt`, `shift` and `meta` separated by `+`.
@@ -131,7 +129,7 @@ The `add` method lets you add new keybindings to the handler, you do that by spe
 ```ts
 const handler = keys()
   .add('ctrl+up', fn1)  // add single key binding
-  .add(['ctrl+left', 'ctrl+up', 'ctrl+right'], fn2)  // add multi keys binding
+  .add('ctrl+left', 'ctrl+up', 'ctrl+right', fn2)  // add multi keys binding
   .add('tab', event => {
     // You can access the keyboard event inside the callbacks
   })
