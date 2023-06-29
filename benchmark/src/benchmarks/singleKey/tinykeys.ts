@@ -1,4 +1,4 @@
-import tinykeys from 'tinykeys'
+import {tinykeys} from 'tinykeys'
 import {test} from './test'
 
 window['run_test'] = test((callback) => {

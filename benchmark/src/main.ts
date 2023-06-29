@@ -13,6 +13,7 @@ async function main() {
     const tests = benchmarks[name]
     const results = []
     for (const test of tests) {
+      console.log(name, test);
       const path = joinPaths(__dirname, 'benchmarks', name, test + '.ts')
       const {duration, memory} = await measure(browser, path)
       results.push({name: test, duration, memory})

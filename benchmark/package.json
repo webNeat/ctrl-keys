@@ -9,18 +9,19 @@
   "author": "Amine Ben hammou",
   "license": "MIT",
   "dependencies": {
-    "@parcel/config-default": "^2.3.2",
-    "@parcel/core": "^2.3.2",
-    "@parcel/fs": "^2.3.2",
-    "@types/node": "^17.0.18",
-    "ctrl-keys": "^1.0.0-beta.3",
-    "hotkeys-js": "^3.8.7",
-    "parcel": "^2.3.2",
-    "puppeteer": "^13.3.2",
-    "shortcuts": "^1.8.1",
-    "tinykeys": "^1.4.0",
-    "ts-node": "^10.5.0",
-    "tslib": "^2.3.1",
-    "typescript": "^4.5.5"
+    "@parcel/config-default": "^2.9.3",
+    "@parcel/core": "^2.9.3",
+    "@parcel/fs": "^2.9.3",
+    "@testing-library/user-event": "^14.4.3",
+    "@types/node": "^20.3.2",
+    "ctrl-keys": "^1.0.0",
+    "hotkeys-js": "^3.10.3",
+    "parcel": "^2.9.3",
+    "puppeteer": "^13.0.0",
+    "shortcuts": "^2.0.3",
+    "tinykeys": "^2.1.0",
+    "ts-node": "^10.9.1",
+    "tslib": "^2.6.0",
+    "typescript": "^5.1.6"
   }
 }
