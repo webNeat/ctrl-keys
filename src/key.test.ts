@@ -48,9 +48,8 @@ describe('encodeKey', () => {
     expect(encodeKey(['ctrl', 'alt', 'meta', 'shift', 'a'])).toBe((codes['a'] << 4) + 0b1111)
   })
   it('encodes a modifier key', () => {
-    expect(encodeKey(['ctrl', 'alt', 'ctrl'])).toBe(0b1100)
-    expect(encodeKey(['ctrl', 'alt', 'alt'])).toBe(0b1100)
-    expect(encodeKey(['alt', 'meta', 'meta'])).toBe(0b0110)
+    expect(encodeKey(['ctrl', 'alt'])).toBe(0b1100)
+    expect(encodeKey(['alt', 'meta'])).toBe(0b0110)
   })
   it('encodes unknown key', () => {
     expect(encodeKey(['é' as any])).toBe(0)

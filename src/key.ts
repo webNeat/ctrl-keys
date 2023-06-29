@@ -2,7 +2,7 @@ import {aliases, ALT_MASK, chars, codes, CTRL_MASK, META_MASK, modifiers, MODIFI
 import {EncodedKey, Key, NormalizedKey} from './types'
 
 export function normalizeKey(key: Key): NormalizedKey {
-  let parts
+  let parts: string[]
   if (key === '+') return ['+']
   if ('+' == key.slice(-1)) {
     parts = key.slice(0, -2).split('+')
