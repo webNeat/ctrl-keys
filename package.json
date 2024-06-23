@@ -1,6 +1,6 @@
 {
   "name": "ctrl-keys",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": "Amine Ben hammou",
   "description": "A tiny, super fast, typescript library to handle keybindings efficiently.",
   "keywords": [
@@ -14,6 +14,13 @@
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
   "optimize": true,
   "targets": {
     "types": {
@@ -37,17 +44,17 @@
     "test-coverage": "jest --coverage"
   },
   "devDependencies": {
-    "just-types": "^2.0.0-alpha.3",
-    "@parcel/packager-ts": "^2.12.0",
-    "@parcel/transformer-typescript-types": "^2.12.0",
+    "@parcel/packager-ts": "2.12.0",
+    "@parcel/transformer-typescript-types": "2.12.0",
     "@testing-library/dom": "^10.1.0",
     "@testing-library/user-event": "^14.5.2",
     "@types/jest": "^29.5.12",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
+    "just-types": "^2.0.0-alpha.3",
     "parcel": "^2.12.0",
-    "ts-jest": "^29.1.2",
-    "tslib": "^2.6.2",
-    "typescript": "^5.4.5"
+    "ts-jest": "^29.1.5",
+    "tslib": "^2.6.3",
+    "typescript": "^5.5.2"
   }
 }
