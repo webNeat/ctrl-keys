@@ -219,6 +219,16 @@ The results above are of a benchmark of handling a 3 keys sequence 1000 times. [
 
 # Changelog
 
+**1.0.3 (June 23th 2024)**
+
+- Update dev dependencies.
+- Add `exports` to package.json to fix [issue](https://github.com/webNeat/ctrl-keys/issues/8).
+
+**1.0.2 (May 1st 2024)**
+
+- Update dev dependencies.
+- Remove `just-types` from dependencies and bundle it in the types declaration istead.
+
 **1.0.1 (June 30th 2023)**
 
 - Update dev dependencies and benchmark.
