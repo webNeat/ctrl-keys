@@ -17,7 +17,7 @@
   "exports": {
     ".": {
       "import": "./dist/index.mjs",
-      "require": "./dist/index.js",
+      "require": "./dist/index.umd.js",
       "types": "./dist/index.d.ts"
     }
   },
@@ -39,20 +39,24 @@
   },
   "scripts": {
     "bench": "cd benchmark && yarn && yarn build",
-    "build": "parcel build",
+    "build": "parcel build && rollup -c",
     "test": "jest",
     "test-coverage": "jest --coverage"
   },
   "devDependencies": {
-    "@parcel/packager-ts": "2.12.0",
-    "@parcel/transformer-typescript-types": "2.12.0",
+    "@parcel/packager-ts": "2.13.3",
+    "@parcel/transformer-typescript-types": "2.13.3",
+    "@rollup/plugin-commonjs": "^28.0.2",
+    "@rollup/plugin-node-resolve": "^16.0.0",
+    "@rollup/plugin-typescript": "^12.1.2",
     "@testing-library/dom": "^10.1.0",
     "@testing-library/user-event": "^14.5.2",
     "@types/jest": "^29.5.12",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "just-types": "^2.0.0-alpha.3",
-    "parcel": "^2.12.0",
+    "parcel": "^2.13.3",
+    "rollup": "^4.32.1",
     "ts-jest": "^29.1.5",
     "tslib": "^2.6.3",
     "typescript": "^5.5.2"
