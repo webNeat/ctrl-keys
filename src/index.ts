@@ -3,6 +3,12 @@ import {createState} from './state'
 
 export * from './types'
 
-export default function createHandler() {
+export function keys() {
   return new Handler(createState())
+}
+
+export default keys
+
+if (typeof module !== 'undefined') {
+  module.exports = keys
 }
