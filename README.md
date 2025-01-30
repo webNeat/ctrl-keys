@@ -219,6 +219,11 @@ The results above are of a benchmark of handling a 3 keys sequence 1000 times. [
 
 # Changelog
 
+**1.0.4 (January 30th 2025)**
+
+- Update dev dependencies.
+- Add `module.exports` to enable `require`ing the default export.
+
 **1.0.3 (June 23th 2024)**
 
 - Update dev dependencies.
