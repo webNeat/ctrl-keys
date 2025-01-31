@@ -1,6 +1,6 @@
 {
   "name": "ctrl-keys",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "author": "Amine Ben hammou",
   "description": "A tiny, super fast, typescript library to handle keybindings efficiently.",
   "keywords": [
@@ -16,9 +16,10 @@
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "default": "./dist/index.js"
     }
   },
   "optimize": true,

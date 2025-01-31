@@ -219,6 +219,10 @@ The results above are of a benchmark of handling a 3 keys sequence 1000 times. [
 
 # Changelog
 
+**1.0.5 (January 31th 2025)**
+
+- Fix issue of 2 defautl exports.
+
 **1.0.4 (January 30th 2025)**
 
 - Update dev dependencies.
